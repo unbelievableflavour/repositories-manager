@@ -1,7 +1,7 @@
-# Bookmark Manager
+# Repositories
 Manager for your ssh configs
 
-![Screenshot](https://raw.githubusercontent.com/bartzaalberg/Bookmark-Manager/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/bartzaalberg/repositories-manager/master/screenshot.png)
 
 ### Simple App for elementary OS
 

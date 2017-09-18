@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Repositories
+GenericName=Bookmark Manager App
+Comment=Application to manage repositories
+Categories=Utility;Network;System;
+Exec=com.github.bartzaalberg.repositories
+Icon=com.github.bartzaalberg.repositories
+Terminal=false
+Type=Application
+X-GNOME-Gettext-Domain=repositories
+Keywords=GUI;Repositories;Manager;

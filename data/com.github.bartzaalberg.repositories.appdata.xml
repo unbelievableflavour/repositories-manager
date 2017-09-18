@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>com.github.bartzaalberg.repositories.desktop</id>
+  <metadata_license>CC0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Repositories</name>
+  <summary>Manage your repositories</summary>
+  <description>
+    <p>A simple tool to manage your repositories.</p>
+    <p>Features:</p>
+     <ul>
+       <li>Easily search through your all your repositories</li>
+       <li>Add, remove, and update repositories</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/bartzaalberg/repositories-manager/master/screenshot.png</image>
+    </screenshot>
+  </screenshots>
+  <developer_name>Bart Zaalberg</developer_name>
+  <custom>
+    <value key="x-appcenter-color-primary">rgb(224,247,255)</value>
+    <value key="x-appcenter-color-primary-text">#000</value>
+  </custom>
+  <url type="homepage">https://github.com/bartzaalberg/repositories</url>
+  <url type="bugtracker">https://github.com/bartzaalberg/repositories/issues</url>
+  <url type="help">https://github.com/bartzaalberg/repositories/issues</url>
+</component>
