@@ -1,11 +1,11 @@
 # Repositories
-Manager for your ssh configs
+Manager for your apt repositories
 
 ![Screenshot](https://raw.githubusercontent.com/bartzaalberg/repositories-manager/master/screenshot.png)
 
 ### Simple App for elementary OS
 
-A Vala application to get your ssh bookmarks from your config file and use them in an interface kinda way
+A Vala application to manage your repositories in an interface
 
 ## Installation
 
