@@ -1,10 +1,13 @@
 namespace RepositoriesManager {
 public class AddRepository : Gtk.Dialog {
   
+    private ConfigFileReader configFileReader = new ConfigFileReader ();
     ListManager listManager = ListManager.get_instance();
+    Gtk.Entry aptEntry;
 
     public AddRepository(){
-        title = "Enter the complete APT line of the repository that you want to add as source";
+        title = "Enter the complete APT line of the repository that you want to add as source.";
+        var description = "The APT line includes the type, location and components of a repository, for example  'deb http://archive.ubuntu.com/ubuntu xenial main'.";
         set_default_size (630, 430);
         resizable = false;
  
@@ -12,17 +15,18 @@ public class AddRepository : Gtk.Dialog {
         image.valign = Gtk.Align.START;
 
         var aptLabel = new Gtk.Label ("apt:");
-        var aptEntry = new Gtk.Entry ();
-        aptEntry.set_placeholder_text ("deb http://packages.linuxmint.com/ julia main");
+        aptEntry = new Gtk.Entry ();
+        aptEntry.set_placeholder_text ("deb http://archive.ubuntu.com/ubuntu xenial main");
         aptEntry.set_tooltip_text ("This is the link to the repository.");
 
-        var primary_label = new Gtk.Label (title);
+        var primary_label = new Gtk.Label ("<b>%s</b>".printf (title));
+        primary_label.use_markup = true;
         primary_label.selectable = true;
         primary_label.max_width_chars = 50;
         primary_label.wrap = true;
         primary_label.xalign = 0;
 
-        var secondary_label = new Gtk.Label ("The APT line includes the type, location and components of a repository, for example  'deb http://archive.ubuntu.com/ubuntu xenial main'.");
+        var secondary_label = new Gtk.Label (description);
         secondary_label.use_markup = true;
         secondary_label.selectable = true;
         secondary_label.max_width_chars = 50;
@@ -48,13 +52,21 @@ public class AddRepository : Gtk.Dialog {
         transient_for = null;
         
         var close_button = new Gtk.Button.with_label ("Close");
+        close_button.margin_right = 12;
         close_button.clicked.connect (() => {
             this.destroy ();
+        });
+
+        var create_button = new Gtk.Button.with_label ("Create");
+        create_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);        
+        create_button.clicked.connect (() => {
+            AddToFile();
         });
 
         var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
         button_box.set_layout (Gtk.ButtonBoxStyle.END);
         button_box.pack_start (close_button);
+        button_box.pack_end (create_button);
         button_box.margin = 12;
         button_box.margin_bottom = 0;
 
@@ -62,13 +74,43 @@ public class AddRepository : Gtk.Dialog {
         this.show_all ();
     }
 
+    public void AddToFile(){
+        
+        var repositories = configFileReader.getRepositories();
 
+        if(isNotValid(aptEntry.text)){
+            new Alert("Field is invalid", "The APT line includes the type, location and components of a repository, for example  'deb http://archive.ubuntu.com/ubuntu xenial main'.");
+            return;
+        }
+
+        if(alreadyExists(aptEntry.text, repositories)){
+            new Alert("This repository already exists", "Please choose a different name");
+            return;
+        }
+
+        listManager.getList().getRepositories("");    
+        this.destroy ();
+    }
 
     public bool isNotValid(string inputField){
         if(inputField ==  ""){
             return true;
         }
+
+        if(!("deb" in inputField) && !("deb-src" in inputField)){ 
+            return true;
+        }
         return false;
     }
+
+    public bool alreadyExists(string newRepository, string[] repositories){
+        foreach (string repository in repositories) {
+           if(repository == newRepository) {
+                return true;
+           }
+        }
+        return false;
+    }
+
 }
 }

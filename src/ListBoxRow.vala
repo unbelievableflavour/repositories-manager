@@ -18,8 +18,8 @@ public class ListBoxRow : Gtk.ListBoxRow {
         if(filteredRepository[0] == "deb-src"){
             name += " (Source Code)";
         }
-        var name_label = generateNameLabel(filteredRepository[1]);
-        var summary_label = generateSummaryLabel("distribution=" + filteredRepository[2]);      
+        var name_label = generateNameLabel(name);
+        var summary_label = generateSummaryLabel(filteredRepository);      
 
         var enabledButton = new Gtk.CheckButton();
         
@@ -49,8 +49,16 @@ public class ListBoxRow : Gtk.ListBoxRow {
         return name_label;
     }
 
-    public Gtk.Label generateSummaryLabel(string sshCommand){
-        var summary_label = new Gtk.Label (sshCommand);
+    public Gtk.Label generateSummaryLabel(string[] filteredRepository){
+        var summary = filteredRepository[2];
+        if(filteredRepository[3]!= null){
+        summary += " " + filteredRepository[3];
+        }
+
+        if(filteredRepository[4]!= null){
+        summary += " " + filteredRepository[4];
+        }
+        var summary_label = new Gtk.Label (summary);
         summary_label.halign = Gtk.Align.START;
 
         return summary_label;

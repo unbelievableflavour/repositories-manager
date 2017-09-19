@@ -24,6 +24,7 @@ public class HeaderBar : Gtk.HeaderBar {
         });
 
         var edit_button = new Gtk.Button.with_label ("Edit");
+        edit_button.set_sensitive(false);
         edit_button.clicked.connect (() => {
         });
 
