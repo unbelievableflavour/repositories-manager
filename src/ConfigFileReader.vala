@@ -71,6 +71,7 @@ public class ConfigFileReader : Gtk.ListBox{
     }
 
     public void createNewFile(string repository){
+
         var splittedLine = repository.split(" ");
         var filteredRepository = getFilteredArray(splittedLine);
 
@@ -87,7 +88,7 @@ public class ConfigFileReader : Gtk.ListBox{
             dos.put_string (repository, null);
             
         } catch (Error e) {
-            stderr.printf ("Error: %s\n", e.message);
+            new Alert("An error occured", e.message);
         }
     }
 

@@ -29,6 +29,8 @@ sudo cmake ..
 sudo make
 ```
 
-
 ### Installing
 `sudo make install`
+
+### Running
+`sudo ./com.github.bartzaalberg.repositories`
