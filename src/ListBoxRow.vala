@@ -12,9 +12,14 @@ public class ListBoxRow : Gtk.ListBoxRow {
     public ListBoxRow (string repository){
 
         var splittedLine = repository.split(" ");
+        var filteredRepository = getFilteredArray(splittedLine);
 
-        var name_label = generateNameLabel(repository);
-        var summary_label = generateSummaryLabel("Some Label");
+        var name = filteredRepository[1];
+        if(filteredRepository[0] == "deb-src"){
+            name += " (Source Code)";
+        }
+        var name_label = generateNameLabel(filteredRepository[1]);
+        var summary_label = generateSummaryLabel("distribution=" + filteredRepository[2]);      
 
         var enabledButton = new Gtk.CheckButton();
         
@@ -49,6 +54,27 @@ public class ListBoxRow : Gtk.ListBoxRow {
         summary_label.halign = Gtk.Align.START;
 
         return summary_label;
+    }
+
+    public string[] getFilteredArray(string[] splittedLine){
+        var elementsCount = 0;
+        string[] filteredValue = {};
+        foreach (string part in splittedLine) {
+            if(part == ""){
+                continue;  
+            }          
+            
+            if(part == "#"){
+                continue;  
+            }
+                
+            if(part == "[arch=amd64]") {
+                continue;
+            }
+
+            filteredValue += part;
+        }
+        return filteredValue;
     }
 }
 }

@@ -26,7 +26,7 @@ public class StackManager : Object {
     }
 
     public void loadViews(Gtk.Window window){
-        stack.add_named (new ListBookmarks(), LIST_VIEW_ID);
+        stack.add_named (new ListView(), LIST_VIEW_ID);
         stack.add_named (new NotFoundView(), NOT_FOUND_VIEW_ID);
 
         window.add(stack);

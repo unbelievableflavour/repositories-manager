@@ -1,64 +1,68 @@
 namespace RepositoriesManager {
 public class AddRepository : Gtk.Dialog {
   
-    private Settings settings = new Settings ("com.github.bartzaalberg.bookmark-manager");
     ListManager listManager = ListManager.get_instance();
 
     public AddRepository(){
-        title = "Add Repository";
+        title = "Enter the complete APT line of the repository that you want to add as source";
         set_default_size (630, 430);
         resizable = false;
-        deletable = false;
+ 
+        var image = new Gtk.Image.from_icon_name ("document-new", Gtk.IconSize.DIALOG);
+        image.valign = Gtk.Align.START;
 
-        var general_header = new HeaderLabel (title);
+        var aptLabel = new Gtk.Label ("apt:");
+        var aptEntry = new Gtk.Entry ();
+        aptEntry.set_placeholder_text ("deb http://packages.linuxmint.com/ julia main");
+        aptEntry.set_tooltip_text ("This is the link to the repository.");
+
+        var primary_label = new Gtk.Label (title);
+        primary_label.selectable = true;
+        primary_label.max_width_chars = 50;
+        primary_label.wrap = true;
+        primary_label.xalign = 0;
+
+        var secondary_label = new Gtk.Label ("The APT line includes the type, location and components of a repository, for example  'deb http://archive.ubuntu.com/ubuntu xenial main'.");
+        secondary_label.use_markup = true;
+        secondary_label.selectable = true;
+        secondary_label.max_width_chars = 50;
+        secondary_label.wrap = true;
+        secondary_label.xalign = 0;
+
+        var message_grid = new Gtk.Grid ();
+        message_grid.column_spacing = 12;
+        message_grid.row_spacing = 6;
+        message_grid.margin_left = message_grid.margin_right = 12;
+        message_grid.attach (image, 0, 0, 1, 2);
+        message_grid.attach (primary_label, 1, 0, 1, 1);
+        message_grid.attach (secondary_label, 1, 1, 1, 1);
+        message_grid.attach (aptLabel, 0, 2, 1, 1);
+        message_grid.attach (aptEntry, 1, 2, 1, 1);
+        message_grid.show_all ();
+
+        get_content_area ().add (message_grid);
+
+        resizable = false;
+        deletable =  false;
+        skip_taskbar_hint = true;
+        transient_for = null;
         
-        var usernameLabel = new Gtk.Label ("Default Username:");
-        var usernameEntry = new Gtk.Entry ();
-        usernameEntry.set_text (settings.get_string ("sshname"));
-        usernameEntry.set_tooltip_text ("This variable will be used when no variable is given in the ssh config");            
-
         var close_button = new Gtk.Button.with_label ("Close");
         close_button.clicked.connect (() => {
-            this.destroy ();
-        });
-
-        var save_button = new Gtk.Button.with_label ("Save");
-        save_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        save_button.clicked.connect (() => {
-            
-            if(isNotValid(usernameEntry.text)){
-               new Alert("Fields are invalid", "Please correctly fill in all the fields");
-               return;
-            }
-
-            settings.set_string("sshname", usernameEntry.text);
-            listManager.getList().getRepositories("");
             this.destroy ();
         });
 
         var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
         button_box.set_layout (Gtk.ButtonBoxStyle.END);
         button_box.pack_start (close_button);
-        button_box.pack_end (save_button);
         button_box.margin = 12;
         button_box.margin_bottom = 0;
 
-        var general_grid = new Gtk.Grid ();
-        general_grid.row_spacing = 6;
-        general_grid.column_spacing = 12;
-        general_grid.margin = 12;
-        general_grid.attach (general_header, 0, 0, 2, 1);
-
-        general_grid.attach (usernameLabel, 0, 1, 1, 1);
-        general_grid.attach (usernameEntry, 1, 1, 1, 1);
-    
-        var main_grid = new Gtk.Grid ();
-        main_grid.attach (general_grid, 0, 0, 1, 1);
-        main_grid.attach (button_box, 0, 1, 1, 1);
-        
-        ((Gtk.Container) get_content_area ()).add (main_grid);
+        get_content_area ().add (button_box);
         this.show_all ();
     }
+
+
 
     public bool isNotValid(string inputField){
         if(inputField ==  ""){

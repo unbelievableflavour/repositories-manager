@@ -49,11 +49,10 @@
         src/Constants.vala
         src/StackManager.vala
         src/ListManager.vala
-        src/Dialogs/Preferences.vala
         src/Dialogs/DeleteConfirm.vala
         src/Dialogs/Alert.vala
         src/Dialogs/AddRepository.vala
-        src/Views/ListBookmarks.vala
+        src/Views/ListView.vala
         src/Views/NotFoundView.vala
         src/Components/HeaderBar.vala
         src/Components/HeaderLabel.vala

@@ -8,6 +8,8 @@ public class HeaderBar : Gtk.HeaderBar {
     
     public HeaderBar(){
 
+        //Granite.Widgets.Utils.set_color_primary (this, Constants.BRAND_COLOR);
+
         var searchEntry = new Gtk.SearchEntry ();
         searchEntry.set_placeholder_text("Search repositories");
         searchEntry.set_tooltip_text("Search for repositories");
@@ -15,18 +17,25 @@ public class HeaderBar : Gtk.HeaderBar {
             listManager.getList().getRepositories(searchEntry.text); 
         });
 
-        var settings_button = new Gtk.Button.from_icon_name ("document-properties", Gtk.IconSize.LARGE_TOOLBAR);
-        settings_button.set_tooltip_text("Change your preferences");
-        settings_button.clicked.connect (() => {
-            new Preferences ();
+        var create_button = new Gtk.Button.with_label ("Create");
+        create_button.margin_right = 12;
+        create_button.clicked.connect (() => {
+            new AddRepository();
         });
 
-        Granite.Widgets.Utils.set_color_primary (this, Constants.BRAND_COLOR);
+        var edit_button = new Gtk.Button.with_label ("Edit");
+        edit_button.clicked.connect (() => {
+        });
+
+        var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
+        button_box.set_layout (Gtk.ButtonBoxStyle.START);
+        button_box.pack_start (create_button);
+        button_box.pack_start (edit_button);
       
         this.show_close_button = true;
-        //this.pack_start (add_button);
-        this.pack_start (searchEntry);
-        this.pack_end (settings_button);        
+
+        this.pack_start (button_box);
+        this.pack_end (searchEntry);
     }
 }
 }

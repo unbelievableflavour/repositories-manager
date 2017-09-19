@@ -9,10 +9,9 @@ public class MainWindow : Gtk.Window{
     private StackManager stackManager = StackManager.get_instance();
 
     construct {
-        set_default_size(800, 510);
-        set_size_request (800, 510);
+        set_default_size(600, 610);
+        set_size_request (600, 610);
         set_titlebar (new HeaderBar());
-        set_resizable(false);
 
         stackManager.loadViews(this);
 

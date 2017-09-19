@@ -6,15 +6,16 @@ public class ConfigFileReader : Gtk.ListBox{
    public string[] getRepositories (){
         string[] repositories = new string[0];
 
-        var general = getRepositoryFile("sources.list");
-
         File[] files = {};        
 
-        var d = Dir.open("/etc/apt/sources.list.d");
+        var directory = Dir.open("/etc/apt/sources.list.d");
 
         files += getRepositoryFile("sources.list");
 
-        while ((name = d.read_name()) != null) {
+        while ((name = directory.read_name()) != null) {
+            if("save" in name){
+                continue;
+            }
             files += getRepositoryFile("sources.list.d/" + name);
         }
 
