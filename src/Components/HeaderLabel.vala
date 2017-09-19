@@ -1,4 +1,4 @@
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class HeaderLabel : Gtk.Label {
     
     public HeaderLabel (string text) {

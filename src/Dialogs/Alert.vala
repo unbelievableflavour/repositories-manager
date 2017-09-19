@@ -1,4 +1,4 @@
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class Alert : Gtk.Dialog {
 
     public Alert(string title, string description){

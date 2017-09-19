@@ -1,4 +1,4 @@
-namespace BookmarkManager.Constants {
+namespace RepositoriesManager.Constants {
     public const string APP_NAME = "Repositories";
     public const string EXEC_NAME = "repositories";
     public const Gdk.RGBA BRAND_COLOR = { 0, 0.6, 1.1, 1 };

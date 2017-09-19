@@ -1,7 +1,7 @@
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class DeleteConfirm : Gtk.Dialog {
       
-    private BookmarkListManager bookmarkListManager = BookmarkListManager.get_instance();
+    private ListManager listManager = ListManager.get_instance();
     private StackManager stackManager = StackManager.get_instance();
 
 //    public DeleteConfirm(Bookmark deletedBookmark){

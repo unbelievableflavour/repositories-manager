@@ -1,12 +1,12 @@
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class ListBookmarks : Gtk.Grid {
        
-   BookmarkListManager bookmarkListManager = BookmarkListManager.get_instance();
+   ListManager listManager = ListManager.get_instance();
 
    public ListBookmarks(){ 
        
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-        box.add(bookmarkListManager.getList());
+        box.add(listManager.getList());
         
         var scrolledWindow = new Gtk.ScrolledWindow(null, null);
         scrolledWindow.hscrollbar_policy = Gtk.PolicyType.NEVER;        
@@ -17,12 +17,11 @@ public class ListBookmarks : Gtk.Grid {
         create_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         create_button.margin_right = 12;
         create_button.clicked.connect (() => {
-            this.destroy ();
+            new AddRepository();
         });
 
         var edit_button = new Gtk.Button.with_label ("Edit");
         edit_button.clicked.connect (() => {
-            this.destroy ();
         });
 
         var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);

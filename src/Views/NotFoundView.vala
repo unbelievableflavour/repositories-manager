@@ -1,6 +1,6 @@
 using Granite.Widgets;
 
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class NotFoundView : Gtk.ScrolledWindow {
 
     public NotFoundView(){ 

@@ -1,10 +1,10 @@
 using Granite.Widgets;
 
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class HeaderBar : Gtk.HeaderBar {
 
     StackManager stackManager = StackManager.get_instance();
-    BookmarkListManager bookmarkListManager = BookmarkListManager.get_instance();
+    ListManager listManager = ListManager.get_instance();
     
     public HeaderBar(){
 
@@ -12,7 +12,7 @@ public class HeaderBar : Gtk.HeaderBar {
         searchEntry.set_placeholder_text("Search repositories");
         searchEntry.set_tooltip_text("Search for repositories");
         searchEntry.search_changed.connect (() => {
-            bookmarkListManager.getList().getRepositories(searchEntry.text); 
+            listManager.getList().getRepositories(searchEntry.text); 
         });
 
         var settings_button = new Gtk.Button.from_icon_name ("document-properties", Gtk.IconSize.LARGE_TOOLBAR);
@@ -20,12 +20,6 @@ public class HeaderBar : Gtk.HeaderBar {
         settings_button.clicked.connect (() => {
             new Preferences ();
         });
-
-        //var add_button = new Gtk.Button.from_icon_name ("document-new", Gtk.IconSize.LARGE_TOOLBAR);
-        //add_button.set_tooltip_text("Create a new bookmark");
-        //add_button.clicked.connect (() => {
-        //    stackManager.getStack().visible_child_name = "add-bookmark-view";
-        //});
 
         Granite.Widgets.Utils.set_color_primary (this, Constants.BRAND_COLOR);
       

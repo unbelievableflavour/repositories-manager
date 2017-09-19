@@ -1,6 +1,6 @@
 using Granite.Widgets;
 
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class ConfigFileReader : Gtk.ListBox{
 
    public string[] getRepositories (){
@@ -97,33 +97,6 @@ public class ConfigFileReader : Gtk.ListBox{
 
         rawSettingsString += "\n";
         return rawSettingsString;
-    }
-
-    private string convertBookmarktoString(Bookmark bookmark){
-            string rawBookmark = "Host " + bookmark.getName(); 
- 
-            if(bookmark.getIp() != null){ 
-                rawBookmark = rawBookmark + "\n    HostName " + bookmark.getIp().to_string();
-            }
-
-            if(bookmark.getPort() != 0){ 
-                rawBookmark = rawBookmark + "\n    Port " + bookmark.getPort().to_string();
-            }
-
-            if(bookmark.getUser() != null){ 
-                rawBookmark = rawBookmark + "\n    User " + bookmark.getUser();
-            }
-
-            if(bookmark.getForwardAgent() != null){ 
-                rawBookmark = rawBookmark + "\n    ForwardAgent " + bookmark.getForwardAgent();
-            }
-
-            if(bookmark.getProxyCommand() != null){ 
-                rawBookmark = rawBookmark + "\n    ProxyCommand " + bookmark.getProxyCommand();
-            }
-
-            rawBookmark = rawBookmark + "\n\n";
-            return rawBookmark;
     }
 }
 }

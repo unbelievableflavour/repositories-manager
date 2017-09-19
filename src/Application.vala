@@ -1,6 +1,6 @@
 using Granite.Widgets;
 
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class App:Granite.Application{
    
     construct {

@@ -1,16 +1,16 @@
 namespace RepositoriesManager {
-public class Preferences : Gtk.Dialog {
+public class AddRepository : Gtk.Dialog {
   
     private Settings settings = new Settings ("com.github.bartzaalberg.bookmark-manager");
     ListManager listManager = ListManager.get_instance();
 
-    public Preferences(){
-        title = "Preferences";
+    public AddRepository(){
+        title = "Add Repository";
         set_default_size (630, 430);
         resizable = false;
         deletable = false;
 
-        var general_header = new HeaderLabel ("Preferences");
+        var general_header = new HeaderLabel (title);
         
         var usernameLabel = new Gtk.Label ("Default Username:");
         var usernameEntry = new Gtk.Entry ();

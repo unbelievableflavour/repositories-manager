@@ -1,6 +1,6 @@
 using Granite.Widgets;
 
-namespace BookmarkManager {
+namespace RepositoriesManager {
 public class ListBox : Gtk.ListBox{
 
     private ConfigFileReader configFileReader = new ConfigFileReader ();
@@ -19,11 +19,6 @@ public class ListBox : Gtk.ListBox{
 
         var repositories = configFileReader.getRepositories();
 
-        if(listisEmpty(repositories)) {
-            stackManager.getStack().visible_child_name = "empty-view";
-            return;
-        }
-
         if(searchWordDoesntMatchAnyInList(searchWord, repositories)) {
             stackManager.getStack().visible_child_name = "not-found-view";
             return;
@@ -41,10 +36,6 @@ public class ListBox : Gtk.ListBox{
         }
 
         this.show_all();
-    }
-
-    private bool listisEmpty(string[] repositories){
-        return repositories.length == 0;    
     }
 
     private bool searchWordDoesntMatchAnyInList(string searchWord, string[] repositories){
