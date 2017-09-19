@@ -24,8 +24,7 @@ public class ListBoxRow : Gtk.ListBoxRow {
         var enabledButton = new Gtk.CheckButton();
         
 	    string firstCharacter = repository.substring (0, 1);
-        stdout.printf(firstCharacter);
-
+        
         if(firstCharacter != "#"){
             enabledButton.active = true;
         }

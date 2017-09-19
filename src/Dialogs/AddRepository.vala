@@ -60,7 +60,7 @@ public class AddRepository : Gtk.Dialog {
         var create_button = new Gtk.Button.with_label ("Create");
         create_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);        
         create_button.clicked.connect (() => {
-            AddToFile();
+            createNewRepository();
         });
 
         var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
@@ -74,8 +74,7 @@ public class AddRepository : Gtk.Dialog {
         this.show_all ();
     }
 
-    public void AddToFile(){
-        
+    public void createNewRepository(){
         var repositories = configFileReader.getRepositories();
 
         if(isNotValid(aptEntry.text)){
@@ -87,6 +86,8 @@ public class AddRepository : Gtk.Dialog {
             new Alert("This repository already exists", "Please choose a different name");
             return;
         }
+
+        configFileReader.createNewFile(aptEntry.text);
 
         listManager.getList().getRepositories("");    
         this.destroy ();

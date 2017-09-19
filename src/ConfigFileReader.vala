@@ -70,34 +70,46 @@ public class ConfigFileReader : Gtk.ListBox{
         return file;
     }
 
-    public void writeToFile(string[] repositories){
-        var file = getRepositoryFile("sources.list");
+    public void createNewFile(string repository){
+        var splittedLine = repository.split(" ");
+        var filteredRepository = getFilteredArray(splittedLine);
 
+        var file = File.new_for_path("/etc/apt/sources.list.d/" + filteredRepository[1] + ".list");
+    
         try {
             if(file.query_exists() == true){
-                var repositoriesRaw = convertOtherSettingsToString(repositories);
-
-                file.delete(null);
-                FileOutputStream fos = file.create (FileCreateFlags.REPLACE_DESTINATION, null);
-                DataOutputStream dos = new DataOutputStream (fos);
-                
-                dos.put_string (repositoriesRaw, null);
+                new Alert("Error", "The file already exists");            
             }
+
+            FileOutputStream fos = file.create (FileCreateFlags.REPLACE_DESTINATION, null);
+            DataOutputStream dos = new DataOutputStream (fos);
+            
+            dos.put_string (repository, null);
+            
         } catch (Error e) {
             stderr.printf ("Error: %s\n", e.message);
         }
     }
 
-    private string convertOtherSettingsToString(string[] settings){
-        string rawSettingsString = "";
-        
-        foreach (string setting in settings) {
-            string rawSetting = setting + "\n";
-            rawSettingsString += rawSetting;
-        }
+    public string[] getFilteredArray(string[] splittedLine){
+        var elementsCount = 0;
+        string[] filteredValue = {};
+        foreach (string part in splittedLine) {
+            if(part == ""){
+                continue;  
+            }          
+            
+            if(part == "#"){
+                continue;  
+            }
+                
+            if(part == "[arch=amd64]") {
+                continue;
+            }
 
-        rawSettingsString += "\n";
-        return rawSettingsString;
+            filteredValue += part;
+        }
+        return filteredValue;
     }
 }
 }
