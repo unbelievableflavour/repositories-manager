@@ -25,12 +25,13 @@ These dependencies must be present before building
 ```
 mkdir build
 cd build
-sudo cmake ..
-sudo make
+cmake ..
+make
 ```
 
 ### Installing
 `sudo make install`
 
 ### Running
-`sudo ./com.github.bartzaalberg.repositories`
+To run, run the following command. Or just search for repositories in your launcher and open it from there
+`./com.github.bartzaalberg.repositories-pkexec`

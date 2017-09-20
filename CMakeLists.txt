@@ -14,7 +14,8 @@
     # what to call that directory where we install data too
     set (PKGDATADIR "${DATADIR}/com.github.bartzaalberg.repositories")
 
-    set (EXEC_NAME "com.github.bartzaalberg.repositories")
+    set (EXEC_NAME "com.github.bartzaalberg.repositories-pkexec")
+    set (EXEC_NAME2 "com.github.bartzaalberg.repositories")
     set (VERSION "0.1")
     set (VERSION_INFO "whats up world")
 
@@ -38,9 +39,28 @@
     # make sure it's the desired version of vala
     ensure_vala_version("0.16" MINIMUM)
 
+    #------------------------------------------------------------------------------------------
+
     # files we want to compile
     include(ValaPrecompile)
     vala_precompile(VALA_C ${EXEC_NAME}
+        src/pkexec.vala
+
+    # tell what libraries to use when compiling
+    PACKAGES
+        gtk+-3.0
+        gio-2.0
+    )
+
+    # tell cmake what to call the executable we just made
+    add_executable(${EXEC_NAME} ${VALA_C})
+    target_compile_options (${EXEC_NAME} PUBLIC -fPIE)
+
+    #------------------------------------------------------------------------------------------
+    
+    # files we want to compile
+    include(ValaPrecompile)
+    vala_precompile(VALA_C ${EXEC_NAME2}
         src/Application.vala
         src/MainWindow.vala
         src/ListBoxRow.vala
@@ -64,18 +84,16 @@
     )
 
     # tell cmake what to call the executable we just made
-    add_executable(${EXEC_NAME} ${VALA_C})
+    add_executable(${EXEC_NAME2} ${VALA_C})
 
     # install the binaries we just made
     install (TARGETS ${EXEC_NAME} RUNTIME DESTINATION bin)
+    install (TARGETS ${EXEC_NAME2} RUNTIME DESTINATION bin)
 
     #add the data directory and activated the cmakelists in that folder
     add_subdirectory (data)
     
-    # add settings schema to pc and recomple all schemas
-    include (GSettings)
-    add_schema (data/com.github.bartzaalberg.repositories.gschema.xml)
-    
-    #uncomment for development. The above command doesnt work without app center
-    execute_process (COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.bartzaalberg.repositories.gschema.xml "/usr/share/glib-2.0/schemas") 
-    execute_process (COMMAND glib-compile-schemas "/usr/share/glib-2.0/schemas") 
+    install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.bartzaalberg.repositories.pkexec.policy DESTINATION ${DATADIR}/applications/)
+
+    # install the polkit action file
+    install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.bartzaalberg.repositories.pkexec.policy DESTINATION /usr/share/polkit-1/actions/)
