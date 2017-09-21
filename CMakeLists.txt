@@ -69,7 +69,6 @@
         src/Constants.vala
         src/StackManager.vala
         src/ListManager.vala
-        src/Dialogs/DeleteConfirm.vala
         src/Dialogs/Alert.vala
         src/Dialogs/AddRepository.vala
         src/Views/ListView.vala
