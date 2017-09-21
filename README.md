@@ -1,9 +1,12 @@
 # Repositories
 Manager for your apt repositories
+ 
+<p align="center"> 
+    <img  
+    src="https://raw.githubusercontent.com/bartzaalberg/repositories-manager/master/screenshot.png" /> 
+</p> 
 
-![Screenshot](https://raw.githubusercontent.com/bartzaalberg/repositories-manager/master/screenshot.png)
-
-### Simple App for elementary OS
+### Repositories manager for elementary OS
 
 A Vala application to manage your repositories in an interface
 
