@@ -4,7 +4,7 @@
  "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
 <policyconfig>
   <vendor>GreyOk</vendor>
-  <action id="com.github.bartzaalberg.repositories.pkexec">
+  <action id="com.github.bartzaalberg.repositories.polkit">
     <message gettext-domain="com.github.bartzaalberg.repositories">Authentication is required to run Repositories Manager.</message>
     <icon_name>com.github.bartzaalberg.repositories</icon_name>
     <defaults>

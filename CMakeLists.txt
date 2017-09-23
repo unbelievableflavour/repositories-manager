@@ -14,7 +14,7 @@
     # what to call that directory where we install data too
     set (PKGDATADIR "${DATADIR}/com.github.bartzaalberg.repositories")
 
-    set (EXEC_NAME "com.github.bartzaalberg.repositories-pkexec")
+    set (EXEC_NAME "com.github.bartzaalberg.repositories-polkit")
     set (EXEC_NAME2 "com.github.bartzaalberg.repositories")
     set (VERSION "0.1")
     set (VERSION_INFO "whats up world")
@@ -44,7 +44,7 @@
     # files we want to compile
     include(ValaPrecompile)
     vala_precompile(VALA_C ${EXEC_NAME}
-        src/pkexec.vala
+        src/Polkit/Application.vala
 
     # tell what libraries to use when compiling
     PACKAGES
