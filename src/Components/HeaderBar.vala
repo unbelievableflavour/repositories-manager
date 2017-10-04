@@ -3,7 +3,6 @@ using Granite.Widgets;
 namespace RepositoriesManager {
 public class HeaderBar : Gtk.HeaderBar {
 
-    StackManager stackManager = StackManager.get_instance();
     ListManager listManager = ListManager.get_instance();
     
     public HeaderBar(){
@@ -18,7 +17,7 @@ public class HeaderBar : Gtk.HeaderBar {
         });
 
         var create_button = new Gtk.Button.with_label ("Create");
-        create_button.margin_right = 12;
+        create_button.margin_end = 12;
         create_button.clicked.connect (() => {
             new AddRepository();
         });

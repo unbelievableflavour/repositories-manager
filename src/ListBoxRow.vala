@@ -3,10 +3,7 @@ using Granite.Widgets;
 namespace RepositoriesManager {
 public class ListBoxRow : Gtk.ListBoxRow {
 
-    StackManager stackManager = StackManager.get_instance();
-
     private const int PROGRESS_BAR_HEIGHT = 5;
-    private Settings settings = new Settings ("com.github.bartzaalberg.bookmark-manager");   
     private Gtk.Box vertical_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
     
     public ListBoxRow (string repository){
@@ -64,7 +61,6 @@ public class ListBoxRow : Gtk.ListBoxRow {
     }
 
     public string[] getFilteredArray(string[] splittedLine){
-        var elementsCount = 0;
         string[] filteredValue = {};
         foreach (string part in splittedLine) {
             if(part == ""){
