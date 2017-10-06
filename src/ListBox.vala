@@ -4,6 +4,7 @@ namespace RepositoriesManager {
 public class ListBox : Gtk.ListBox{
 
     private ConfigFileReader configFileReader = new ConfigFileReader ();
+//    private ListManager listManager = ListManager.get_instance();
     private StackManager stackManager = StackManager.get_instance();
 
     public void empty(){
@@ -35,7 +36,16 @@ public class ListBox : Gtk.ListBox{
             }
         }
 
+        row_activated.connect (on_row_activated);
+
         this.show_all();
+    }
+
+      private void on_row_activated (Gtk.ListBoxRow row) {
+        
+        var activeRow = ((ListBoxRow)row).debName;
+        var listManager = ListManager.get_instance();
+        listManager.setActiveRow(activeRow);
     }
 
     private bool searchWordDoesntMatchAnyInList(string searchWord, string[] repositories){

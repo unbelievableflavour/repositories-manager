@@ -23,8 +23,13 @@ public class HeaderBar : Gtk.HeaderBar {
         });
 
         var edit_button = new Gtk.Button.with_label ("Edit");
-        edit_button.set_sensitive(false);
+        
+        if(listManager.getActiveRow() == ""){
+         //   edit_button.set_sensitive(false);
+        }
+
         edit_button.clicked.connect (() => {
+            new Alert("bla", listManager.getActiveRow());
         });
 
         var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
