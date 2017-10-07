@@ -1,11 +1,19 @@
 namespace RepositoriesManager {
-public class AddRepository : Gtk.Dialog {
+public class EditRepository : Gtk.Dialog {
   
     private ConfigFileReader configFileReader = new ConfigFileReader ();
     ListManager listManager = ListManager.get_instance();
     Gtk.Entry aptEntry;
+    string oldRepository;
 
-    public AddRepository(){
+    public EditRepository(string repository){
+        oldRepository = repository;
+
+        if(repository == ""){
+            new Alert("No repository was selected", "Please select a repository and try again.");  
+            return;      
+        }
+
         title = "Enter the complete APT line of the repository that you want to add as source.";
         var description = "The APT line includes the type, location and components of a repository, for example  'deb http://archive.ubuntu.com/ubuntu xenial main'.";
         set_default_size (630, 430);
@@ -16,7 +24,8 @@ public class AddRepository : Gtk.Dialog {
 
         var aptLabel = new Gtk.Label ("apt:");
         aptEntry = new Gtk.Entry ();
-        aptEntry.set_placeholder_text ("deb http://archive.ubuntu.com/ubuntu xenial main");
+        aptEntry.set_placeholder_text (repository);
+        aptEntry.set_text (repository);
         aptEntry.set_tooltip_text ("This is the link to the repository.");
 
         var primary_label = new Gtk.Label ("<b>%s</b>".printf (title));
@@ -57,10 +66,10 @@ public class AddRepository : Gtk.Dialog {
             this.destroy ();
         });
 
-        var create_button = new Gtk.Button.with_label ("Create");
+        var create_button = new Gtk.Button.with_label ("Edit");
         create_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);        
         create_button.clicked.connect (() => {
-            createNewRepository();
+            editCurrentRepository();
         });
 
         var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
@@ -74,7 +83,7 @@ public class AddRepository : Gtk.Dialog {
         this.show_all ();
     }
 
-    public void createNewRepository(){
+    public void editCurrentRepository(){
         var repositories = configFileReader.getRepositories();
 
         if(isNotValid(aptEntry.text)){
@@ -82,12 +91,7 @@ public class AddRepository : Gtk.Dialog {
             return;
         }
 
-        if(alreadyExists(aptEntry.text, repositories)){
-            new Alert("This repository already exists", "Please choose a different name");
-            return;
-        }
-
-        configFileReader.createNewFile(aptEntry.text);
+        configFileReader.editFile(oldRepository, aptEntry.text);
 
         listManager.getList().getRepositories("");    
         this.destroy ();
@@ -103,15 +107,5 @@ public class AddRepository : Gtk.Dialog {
         }
         return false;
     }
-
-    public bool alreadyExists(string newRepository, string[] repositories){
-        foreach (string repository in repositories) {
-           if(repository == newRepository) {
-                return true;
-           }
-        }
-        return false;
-    }
-
 }
 }

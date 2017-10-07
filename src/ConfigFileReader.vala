@@ -7,41 +7,44 @@ public class ConfigFileReader : Gtk.ListBox{
         string[] repositories = new string[0];
 
         File[] files = {};        
+        try{
+            var directory = Dir.open("/etc/apt/sources.list.d");
 
-        var directory = Dir.open("/etc/apt/sources.list.d");
+            files += getRepositoryFile("sources.list");
 
-        files += getRepositoryFile("sources.list");
-
-        while ((name = directory.read_name()) != null) {
-            if("save" in name){
-                continue;
-            }
-            files += getRepositoryFile("sources.list.d/" + name);
-        }
-
-        foreach (File file in files) {
-            try {
-                // Open file for reading and wrap returned FileInputStream into a
-                // DataInputStream, so we can read line by line
-                var lines = new DataInputStream (file.read ());
-                string line;
-
-                // Read lines until end of file (null) is reached
-                while ((line = lines.read_line (null)) != null) {
-                    
-                    if(line == ""){
-                        continue;
-                    }
-
-                    if(!("deb" in line)){
-                        continue;
-                    }
-
-                    repositories += line;
+            while ((name = directory.read_name()) != null) {
+                if("save" in name){
+                    continue;
                 }
-            } catch (Error e) {
-                error ("%s", e.message);
+                files += getRepositoryFile("sources.list.d/" + name);
             }
+
+            foreach (File file in files) {
+                try {
+                    // Open file for reading and wrap returned FileInputStream into a
+                    // DataInputStream, so we can read line by line
+                    var lines = new DataInputStream (file.read ());
+                    string line;
+
+                    // Read lines until end of file (null) is reached
+                    while ((line = lines.read_line (null)) != null) {
+                        
+                        if(line == ""){
+                            continue;
+                        }
+
+                        if(!("deb" in line)){
+                            continue;
+                        }
+
+                        repositories += line;
+                    }
+                } catch (Error e) {
+                    error ("%s", e.message);
+                }
+            }
+        } catch (Error e){
+            new Alert("An error occured", e.message);
         }
 
         return repositories;
@@ -92,8 +95,43 @@ public class ConfigFileReader : Gtk.ListBox{
         }
     }
 
+    public void editFile(string oldRepository, string newRepository){
+        
+        var splittedLine = oldRepository.split(" ");
+        var filteredRepository = getFilteredArray(splittedLine);
+
+        var file = File.new_for_path("/etc/apt/sources.list.d/" + filteredRepository[1] + ".list");
+    
+        try {
+            if(file.query_exists() == true){
+                file.delete(null);            
+                FileOutputStream fos = file.create (FileCreateFlags.REPLACE_DESTINATION, null);
+                DataOutputStream dos = new DataOutputStream (fos);
+            
+                dos.put_string (newRepository, null);
+            }
+        } catch (Error e) {
+            new Alert("An error occured", e.message);
+        }
+    }
+
+    public void deleteFile(string repository){
+        
+        var splittedLine = repository.split(" ");
+        var filteredRepository = getFilteredArray(splittedLine);
+
+        var file = File.new_for_path("/etc/apt/sources.list.d/" + filteredRepository[1] + ".list");
+    
+        try {
+            if(file.query_exists() == true){
+                file.delete(null);            
+            }
+        } catch (Error e) {
+            new Alert("An error occured", e.message);
+        }
+    }
+
     public string[] getFilteredArray(string[] splittedLine){
-        var elementsCount = 0;
         string[] filteredValue = {};
         foreach (string part in splittedLine) {
             if(part == ""){

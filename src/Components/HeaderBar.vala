@@ -3,7 +3,6 @@ using Granite.Widgets;
 namespace RepositoriesManager {
 public class HeaderBar : Gtk.HeaderBar {
 
-    StackManager stackManager = StackManager.get_instance();
     ListManager listManager = ListManager.get_instance();
     
     public HeaderBar(){
@@ -18,20 +17,31 @@ public class HeaderBar : Gtk.HeaderBar {
         });
 
         var create_button = new Gtk.Button.with_label ("Create");
-        create_button.margin_right = 12;
+        create_button.margin_end = 12;
         create_button.clicked.connect (() => {
             new AddRepository();
         });
 
         var edit_button = new Gtk.Button.with_label ("Edit");
-        edit_button.set_sensitive(false);
+        edit_button.margin_end = 12;
         edit_button.clicked.connect (() => {
+            new EditRepository(listManager.getActiveRow());
         });
+
+        var delete_button = new Gtk.Button.with_label ("Delete");
+        delete_button.clicked.connect (() => {
+            new DeleteConfirm(listManager.getActiveRow());
+        });
+
+        //if(listManager.getActiveRow() == ""){
+        //   edit_button.set_sensitive(false);
+        //}
 
         var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
         button_box.set_layout (Gtk.ButtonBoxStyle.START);
         button_box.pack_start (create_button);
         button_box.pack_start (edit_button);
+        button_box.pack_start (delete_button);
       
         this.show_close_button = true;
 

@@ -3,8 +3,6 @@ using Granite.Widgets;
 namespace RepositoriesManager {
 public class MainWindow : Gtk.Window{
 
-    private Settings settings = new Settings ("com.github.bartzaalberg.bookmark-manager");
-
     private ListManager listManager = ListManager.get_instance();
     private StackManager stackManager = StackManager.get_instance();
 

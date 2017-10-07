@@ -4,10 +4,12 @@ public class ListManager : Object {
     static ListManager? instance;
 
     private ListBox listBox;
+    private string activeRow;
 
     // Private constructor
     ListManager() {
         listBox = new ListBox ();
+        activeRow = "";
     }
  
     // Public constructor
@@ -20,6 +22,14 @@ public class ListManager : Object {
 
     public ListBox getList() {
         return this.listBox;
+    }
+
+    public string getActiveRow() {
+        return this.activeRow;
+    }
+
+    public void setActiveRow(string row) {
+        this.activeRow = row;
     }
 }
 }

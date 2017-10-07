@@ -3,13 +3,12 @@ using Granite.Widgets;
 namespace RepositoriesManager {
 public class ListBoxRow : Gtk.ListBoxRow {
 
-    StackManager stackManager = StackManager.get_instance();
-
-    private const int PROGRESS_BAR_HEIGHT = 5;
-    private Settings settings = new Settings ("com.github.bartzaalberg.bookmark-manager");   
     private Gtk.Box vertical_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-    
+    public string debName;
+
     public ListBoxRow (string repository){
+        
+        debName = repository;
 
         var splittedLine = repository.split(" ");
         var filteredRepository = getFilteredArray(splittedLine);
@@ -18,6 +17,7 @@ public class ListBoxRow : Gtk.ListBoxRow {
         if(filteredRepository[0] == "deb-src"){
             name += " (Source Code)";
         }
+
         var name_label = generateNameLabel(name);
         var summary_label = generateSummaryLabel(filteredRepository);      
 
@@ -38,6 +38,7 @@ public class ListBoxRow : Gtk.ListBoxRow {
         row.add (vertical_box);
 
         this.add (row);
+        
     }
 
     public Gtk.Label generateNameLabel(string repository){
@@ -64,7 +65,6 @@ public class ListBoxRow : Gtk.ListBoxRow {
     }
 
     public string[] getFilteredArray(string[] splittedLine){
-        var elementsCount = 0;
         string[] filteredValue = {};
         foreach (string part in splittedLine) {
             if(part == ""){
@@ -82,6 +82,10 @@ public class ListBoxRow : Gtk.ListBoxRow {
             filteredValue += part;
         }
         return filteredValue;
+    }
+    
+    public string getName(){
+        return debName;
     }
 }
 }
