@@ -1,8 +1,17 @@
+com.github.bartzaalberg.repositories-manager (1.0.0) UNSTABLE; urgency=low
+
+  * Updated icon
+  * Added edit function
+  * Added delete function
+
+ -- Bart Zaalberg <bartzaalberg@gmail.com>  Sat, 07 Oct 2017 18:11:00 +0200
+
+
 com.github.bartzaalberg.repositories-manager (0.0.2) UNSTABLE; urgency=low
 
   * Fixed debian/control file
 
- -- Bart Zaalberg <bartzaalberg@gmail.com>  Wed, 06 Oct 2017 17:23:00 +0200
+ -- Bart Zaalberg <bartzaalberg@gmail.com>  Fri, 06 Oct 2017 17:23:00 +0200
 
 com.github.bartzaalberg.repositories-manager (0.0.1) UNSTABLE; urgency=low
 
