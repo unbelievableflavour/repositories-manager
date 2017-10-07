@@ -1,6 +1,9 @@
 namespace RepositoriesManager {
 public class DeleteConfirm : Gtk.Dialog {
 
+    private ConfigFileReader configFileReader = new ConfigFileReader ();
+    ListManager listManager = ListManager.get_instance();
+
     public DeleteConfirm(string repository){
         if(repository == ""){
             new Alert("No repository was selected", "Please select a repository and try again.");  
@@ -48,6 +51,9 @@ public class DeleteConfirm : Gtk.Dialog {
         var delete_button = new Gtk.Button.with_label ("Delete");
         delete_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
         delete_button.clicked.connect (() => {
+            configFileReader.deleteFile(repository);
+            listManager.getList().getRepositories("");
+            listManager.setActiveRow("");
             this.destroy ();
         });
 
