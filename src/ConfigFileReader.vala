@@ -95,6 +95,42 @@ public class ConfigFileReader : Gtk.ListBox{
         }
     }
 
+    public void editFile(string oldRepository, string newRepository){
+        
+        var splittedLine = oldRepository.split(" ");
+        var filteredRepository = getFilteredArray(splittedLine);
+
+        var file = File.new_for_path("/etc/apt/sources.list.d/" + filteredRepository[1] + ".list");
+    
+        try {
+            if(file.query_exists() == true){
+                file.delete(null);            
+                FileOutputStream fos = file.create (FileCreateFlags.REPLACE_DESTINATION, null);
+                DataOutputStream dos = new DataOutputStream (fos);
+            
+                dos.put_string (newRepository, null);
+            }
+        } catch (Error e) {
+            new Alert("An error occured", e.message);
+        }
+    }
+
+    public void deleteFile(string repository){
+        
+        var splittedLine = repository.split(" ");
+        var filteredRepository = getFilteredArray(splittedLine);
+
+        var file = File.new_for_path("/etc/apt/sources.list.d/" + filteredRepository[1] + ".list");
+    
+        try {
+            if(file.query_exists() == true){
+                file.delete(null);            
+            }
+        } catch (Error e) {
+            new Alert("An error occured", e.message);
+        }
+    }
+
     public string[] getFilteredArray(string[] splittedLine){
         string[] filteredValue = {};
         foreach (string part in splittedLine) {

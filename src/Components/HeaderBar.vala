@@ -23,19 +23,25 @@ public class HeaderBar : Gtk.HeaderBar {
         });
 
         var edit_button = new Gtk.Button.with_label ("Edit");
-        
-        if(listManager.getActiveRow() == ""){
-         //   edit_button.set_sensitive(false);
-        }
-
+        edit_button.margin_end = 12;
         edit_button.clicked.connect (() => {
-            new Alert("bla", listManager.getActiveRow());
+            new EditRepository(listManager.getActiveRow());
         });
+
+        var delete_button = new Gtk.Button.with_label ("Delete");
+        delete_button.clicked.connect (() => {
+            new DeleteConfirm(listManager.getActiveRow());
+        });
+
+        //if(listManager.getActiveRow() == ""){
+        //   edit_button.set_sensitive(false);
+        //}
 
         var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
         button_box.set_layout (Gtk.ButtonBoxStyle.START);
         button_box.pack_start (create_button);
         button_box.pack_start (edit_button);
+        button_box.pack_start (delete_button);
       
         this.show_close_button = true;
 
