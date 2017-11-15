@@ -12,6 +12,10 @@ A Vala application to manage your repositories in an interface
 
 ## Installation
 
+As first you need elementary SDK 
+ 
+ `sudo apt install elementary-sdk` 
+
 ### Dependencies
 
 These dependencies must be present before building
