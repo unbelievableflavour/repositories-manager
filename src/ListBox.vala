@@ -41,7 +41,7 @@ public class ListBox : Gtk.ListBox{
         this.show_all();
     }
 
-      private void on_row_activated (Gtk.ListBoxRow row) {
+    private void on_row_activated (Gtk.ListBoxRow row) {
         
         var activeRow = ((ListBoxRow)row).debName;
         var listManager = ListManager.get_instance();
