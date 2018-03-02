@@ -2,6 +2,7 @@ namespace RepositoriesManager {
 public class EditRepository : Gtk.Dialog {
   
     private ConfigFileReader configFileReader = new ConfigFileReader ();
+    private CommandHandler commandHandler = new CommandHandler();
     ListManager listManager = ListManager.get_instance();
     Gtk.Entry aptEntry;
     string oldRepository;
@@ -91,8 +92,7 @@ public class EditRepository : Gtk.Dialog {
             return;
         }
 
-        configFileReader.editFile(oldRepository, aptEntry.text);
-
+        commandHandler.editRepo(oldRepository, aptEntry.text);
         listManager.getList().getRepositories("");    
         this.destroy ();
     }

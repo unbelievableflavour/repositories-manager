@@ -2,6 +2,7 @@ namespace RepositoriesManager {
 public class AddRepository : Gtk.Dialog {
   
     private ConfigFileReader configFileReader = new ConfigFileReader ();
+    private CommandHandler commandHandler = new CommandHandler();
     ListManager listManager = ListManager.get_instance();
     Gtk.Entry aptEntry;
 
@@ -87,9 +88,8 @@ public class AddRepository : Gtk.Dialog {
             return;
         }
 
-        configFileReader.createNewFile(aptEntry.text);
-
-        listManager.getList().getRepositories("");    
+        commandHandler.addRepo(aptEntry.text);
+        listManager.getList().getRepositories("");
         this.destroy ();
     }
 

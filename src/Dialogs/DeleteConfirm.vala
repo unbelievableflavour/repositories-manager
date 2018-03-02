@@ -2,6 +2,7 @@ namespace RepositoriesManager {
 public class DeleteConfirm : Gtk.Dialog {
 
     private ConfigFileReader configFileReader = new ConfigFileReader ();
+    private CommandHandler commandHandler = new CommandHandler();
     ListManager listManager = ListManager.get_instance();
 
     public DeleteConfirm(string repository){
@@ -51,7 +52,7 @@ public class DeleteConfirm : Gtk.Dialog {
         var delete_button = new Gtk.Button.with_label ("Delete");
         delete_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
         delete_button.clicked.connect (() => {
-            configFileReader.deleteFile(repository);
+            commandHandler.deleteRepo(repository);
             listManager.getList().getRepositories("");
             listManager.setActiveRow("");
             this.destroy ();
