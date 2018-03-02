@@ -30,6 +30,8 @@ public class ListManager : Object {
 
     public void setActiveRow(string row) {
         this.activeRow = row;
+        var headerBar = HeaderBar.get_instance();
+        headerBar.setButtonsActive();
     }
 }
 }
