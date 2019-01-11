@@ -24,7 +24,7 @@ public class CommandHandler : Object {
             "pkexec",
             "env",
             "HOME=" + homeDir,
-            "com.github.bartzaalberg.repositories-wizard",
+            "com.github.bartzaalberg.repositories-manager-wizard",
             option,
             name,
             extraOption

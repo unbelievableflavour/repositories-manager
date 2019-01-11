@@ -2,7 +2,7 @@ using Granite.Widgets;
 
 namespace RepositoriesManager {
 public class App:Granite.Application{
-   
+
     construct {
         application_id = Constants.APPLICATION_ID;
         program_name = Constants.APP_NAME;
@@ -11,9 +11,9 @@ public class App:Granite.Application{
         app_launcher = Constants.DESKTOP_NAME;
 
         build_version = Constants.VERSION;
-        app_icon = "com.github.bartzaalberg.repositories";
-        main_url = "https://github.com/bartzaalberg/repositories";
-        bug_url = "https://github.com/bartzaalberg/repositories/issues";
+        app_icon = "com.github.bartzaalberg.repositories-manager";
+        main_url = "https://github.com/bartzaalberg/repositories-manager";
+        bug_url = "https://github.com/bartzaalberg/repositories-manager/issues";
     }
 
     public override void activate() {
@@ -23,14 +23,14 @@ public class App:Granite.Application{
     }
 
     public static int main(string[] args) {
-    
+
         new App().run(args);
 
         Gtk.main();
- 
+
         return 0;
     }
- 
+
 }
 }
 
