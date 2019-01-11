@@ -1,4 +1,4 @@
-# Repositories
+# Repositories Manager
 Manager for your apt repositories
  
 <p align="center"> 
@@ -27,18 +27,16 @@ These dependencies must be present before building
  
  `sudo apt install valac libgtk-3-dev libgranite-dev`
 
-
 ### Building
 ```
-mkdir build
+meson build --prefix=/usr
 cd build
-cmake ..
-make
+ninja
 ```
 
 ### Installing
-`sudo make install`
+`sudo ninja install`
 
 ### Running
 To run, run the following command. Or just search for repositories in your launcher and open it from there
-`./com.github.bartzaalberg.repositories-polkit`
+`./com.github.bartzaalberg.repositories-manager-wizard`
