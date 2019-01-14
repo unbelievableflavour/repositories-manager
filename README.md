@@ -36,7 +36,3 @@ ninja
 
 ### Installing
 `sudo ninja install`
-
-### Running
-To run, run the following command. Or just search for repositories in your launcher and open it from there
-`./com.github.bartzaalberg.repositories-manager-wizard`
