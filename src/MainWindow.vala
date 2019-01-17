@@ -7,9 +7,14 @@ public class MainWindow : Gtk.Window{
     private StackManager stackManager = StackManager.get_instance();
     private HeaderBar headerBar = HeaderBar.get_instance();
 
+    public MainWindow (Gtk.Application application) {
+        Object (application: application,
+                resizable: true,
+                height_request: 600,
+                width_request: 610);
+    }
+
     construct {
-        set_default_size(600, 610);
-        set_size_request (600, 610);
         set_titlebar (headerBar);
 
         stackManager.loadViews(this);
@@ -17,6 +22,22 @@ public class MainWindow : Gtk.Window{
         listManager.getList().getRepositories("");
 
         stackManager.getStack().visible_child_name = "list-view";
+
+        addShortcuts();
     }
+
+    private void addShortcuts(){
+            key_press_event.connect ((e) => {
+                switch (e.keyval) {
+                    case Gdk.Key.q:
+                      if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                        this.destroy ();
+                      }
+                      break;
+                }
+
+                return false;
+            });
+        }
 }
 }
